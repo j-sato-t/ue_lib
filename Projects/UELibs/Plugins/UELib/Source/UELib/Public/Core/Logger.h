@@ -28,11 +28,11 @@ class UELIB_API ULogger : public UObject
 {
 	GENERATED_BODY()
 protected:
-	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true))
+	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true), Category=Log)
 	ELogLevel _filterType;
-	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true))
+	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true), Category = Log)
 	FString _tag;
-	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true))
+	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true), Category = Log)
 	bool _timeUTC;
 
 public:
