@@ -87,3 +87,10 @@ void ULogger::LogCritical(FString msg, bool bIsClash) const
 		}
 	}
 }
+
+void ULogger::Setup(ELogLevel filter, FString tag, bool timeUTC)
+{
+	_filterType = filter;
+	_tag = tag;
+	_timeUTC = timeUTC;
+}

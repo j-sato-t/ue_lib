@@ -6,11 +6,12 @@
 #include "UObject/NoExportTypes.h"
 #include "TickableObject.generated.h"
 
+
 /**
- * 
- */
+*
+*/
 UCLASS(Blueprintable, BlueprintType)
-class UELIB_API UTickableObject : public UObject, public FTickableGameObject
+	class UELIB_API UTickableObject : public UObject, public FTickableGameObject
 {
 	GENERATED_BODY()
 
@@ -24,7 +25,7 @@ private:
 
 protected:
 
-	
+
 public:
 	UTickableObject();
 
@@ -37,17 +38,17 @@ public:
 	UWorld* GetWorld() const override;
 
 protected:
-	UFUNCTION(BlueprintNativeEvent, Category=Tick, DisplayName="Tick")
-	void OnTick(float DeltaTime);
+	UFUNCTION(BlueprintNativeEvent, Category = Tick, DisplayName = "Tick")
+		void OnTick(float DeltaTime);
 	virtual void OnTick_Implementation(float DeltaTime);
 
 	/// <summary>
 	/// そのオブジェクトの初回Tickで呼ばれる
 	/// </summary>
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = Tick)
-	void Initialize();
+		void Initialize();
 	virtual void Initialize_Implementation();
 
-	UFUNCTION(BlueprintCallable, Category=Tick)
-	void SetTickable(bool newTickable);
+	UFUNCTION(BlueprintCallable, Category = Tick)
+		void SetTickable(bool newTickable);
 };

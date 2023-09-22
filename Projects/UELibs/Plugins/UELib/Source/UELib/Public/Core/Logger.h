@@ -9,6 +9,7 @@
 DECLARE_LOG_CATEGORY_EXTERN(LogUELib, Log, All);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRelayLogString, FString, logString);
 
+
 UENUM(BlueprintType)
 enum class ELogLevel : uint8
 {
@@ -21,14 +22,14 @@ enum class ELogLevel : uint8
 };
 
 /**
- * 
- */
+*
+*/
 UCLASS(Blueprintable, BlueprintType)
 class UELIB_API ULogger : public UObject
 {
 	GENERATED_BODY()
 protected:
-	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true), Category=Log)
+	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true), Category = Log)
 	ELogLevel _filterType;
 	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true), Category = Log)
 	FString _tag;
@@ -62,7 +63,7 @@ public:
 
 	// =================================
 
-	UFUNCTION(BlueprintCallable, Category=Log)
+	UFUNCTION(BlueprintCallable, Category = Log)
 	void LogTrace(FString msg) const;
 	UFUNCTION(BlueprintCallable, Category = Log)
 	void LogDebug(FString msg) const;
@@ -74,4 +75,7 @@ public:
 	void LogError(FString msg) const;
 	UFUNCTION(BlueprintCallable, Category = Log)
 	void LogCritical(FString msg, bool bIsClash = false) const;
+
+	// コードで初期化する時用
+	void Setup(ELogLevel filter = ELogLevel::Info, FString tag = TEXT(""), bool timeUTC = true);
 };
