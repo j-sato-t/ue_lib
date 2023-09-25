@@ -2,6 +2,8 @@
 
 
 #include "Core/Manageable.h"
+#include <chrono>
+#include <thread>
 
 UManageable::UManageable() : _className(__func__)
 {
@@ -37,11 +39,42 @@ bool UManageable::Open(const FOpenSetting& setting)
 		return false;
 	}
 
-	// TODO: 非同期の開始処理があるならそれを待つ
-	// if () {}
+	// 非同期の開始処理があるならそれを待つ
+	if (!_openingActor.IsEmpty()) {
+		_logger->LogTrace(TEXT("start wait opening act"));
+		_waitOpeningTask = UE::Tasks::Launch(UE_SOURCE_LOCATION, [this] {
+			for (UWaitableBase* task : _openingActor) {
+				task->StartTask();
+			}
 
+			bool isEnd = false;
+			while (true) {
+				std::this_thread::sleep_for(std::chrono::milliseconds(8));
+
+				isEnd = true;
+				for (UWaitableBase* task : _openingActor) {
+					if (task->IsFailed()) {
+						// 失敗時は即終了
+						SetFailed();
+						_logger->LogError(TEXT("fail opening"));
+						return;
+					}
+					if (!task->IsSuccessed()) {
+						isEnd = false;
+						break;
+					}
+				}
+				if (isEnd) {
+					_logger->LogTrace(TEXT("end wait opening act"));
+					break;
+				}
+			}
+
+			OnOpenComplete();
+		});
+	}
 	// なければ開始処理終了とする
-	// else
+	else
 	{
 		OnOpenComplete();
 	}
@@ -64,7 +97,7 @@ void UManageable::Close()
 
 	OnClose();
 
-	// TODO: 自動終了
+	// 自動終了
 	for (UManageable* closeTarget : _autoCloesList)
 	{
 		closeTarget->Close();
@@ -129,4 +162,20 @@ void UManageable::SetAutoCloser(UManageable* target)
 {
 	if (target == nullptr) return;
 	_autoCloesList.Add(target);
+}
+
+void UManageable::AddOpeningFunction(TFunction<bool()> openingAct)
+{
+	UWaitFunction* task = NewObject<UWaitFunction>(this);
+	task->SetFunction(openingAct);
+	_openingActor.Add(task);
+}
+
+void UManageable::AddOpeningAct(UWaitableBase* openingAct)
+{
+	if (openingAct == nullptr) {
+		_logger->LogWarning(TEXT("openingAct is null"));
+		return;
+	}
+	_openingActor.Add(openingAct);
 }

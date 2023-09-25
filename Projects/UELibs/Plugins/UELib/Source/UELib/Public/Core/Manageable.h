@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Core/TickableObject.h"
 #include "Core/Logger.h"
+#include "Core/WaitFunction.h"
 #include "Manageable.generated.h"
 
 
@@ -48,14 +49,17 @@ private:
 
 	const char* _className;
 
+	UPROPERTY()
 	TArray<UManageable*> _autoCloesList;
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = Manageable)
 	ULogger* _logger;
 
-	// TODO: 開始処理を待つ方法
-	// TODO: 終了をまとめてする
+	// 開始処理のリスト
+	UPROPERTY()
+	TArray<UWaitableBase*> _openingActor;
+	UE::Tasks::TTask<void> _waitOpeningTask;
 
 public:
 	UManageable();
@@ -105,4 +109,9 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = Manageable)
 	void SetAutoCloser(UManageable* target);
+
+	// ---------------------------
+	void AddOpeningFunction(TFunction<bool()> openingAct);
+	UFUNCTION(BlueprintCallable, Category = Manageable)
+	void AddOpeningAct(UWaitableBase* openingAct);
 };
