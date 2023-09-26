@@ -17,13 +17,23 @@ class UELIB_API UWaitFunction : public UWaitableBase
 {
 	GENERATED_BODY()
 private:
+	/// <summary>
+	/// 実行する関数のデリゲート
+	/// </summary>
 	FWaitFunction _waitFunction;
+
+	/// <summary>
+	/// タスク本体
+	/// </summary>
 	UE::Tasks::TTask<void> _taskBody;
 
 protected:
 	virtual void StartTask_Implementation() override;
 
 public:
-
+	/// <summary>
+	/// 実行する関数をセットする
+	/// </summary>
+	/// <param name="taskFunction">引数無しでboolを返す関数</param>
 	void SetFunction(TFunction<bool()> taskFunction);
 };

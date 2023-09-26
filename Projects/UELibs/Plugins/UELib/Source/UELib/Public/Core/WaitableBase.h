@@ -6,6 +6,9 @@
 #include "Core/TickableObject.h"
 #include "WaitableBase.generated.h"
 
+/// <summary>
+/// タスクの状態
+/// </summary>
 UENUM()
 enum class ETaskStatus : uint8 {
 	Running = 0,
@@ -21,15 +24,28 @@ class UELIB_API UWaitableBase : public UTickableObject
 {
 	GENERATED_BODY()
 private:
+	/// <summary>
+	/// 現在の状態
+	/// </summary>
 	UPROPERTY()
 	ETaskStatus _status = ETaskStatus::Running;
 protected:
+	/// <summary>
+	/// 完了したことをセットする
+	/// </summary>
 	UFUNCTION(BlueprintCallable, Category=Task)
 	void SetFinish();
+
+	/// <summary>
+	/// エラーになったことをセットする
+	/// </summary>
 	UFUNCTION(BlueprintCallable, Category = Task)
 	void SetFailed();
 public:
 
+	/// <summary>
+	/// タスクを開始する
+	/// </summary>
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = Task)
 	void StartTask();
 	virtual void StartTask_Implementation();
