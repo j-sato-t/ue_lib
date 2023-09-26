@@ -98,7 +98,7 @@ void UManageable::Close()
 	OnClose();
 
 	// 自動終了
-	for (UManageable* closeTarget : _autoCloesList)
+	for (UManageable* closeTarget : _autoCloseList)
 	{
 		closeTarget->Close();
 	}
@@ -161,7 +161,7 @@ void UManageable::SetFailed()
 void UManageable::SetAutoCloser(UManageable* target)
 {
 	if (target == nullptr) return;
-	_autoCloesList.Add(target);
+	_autoCloseList.Add(target);
 }
 
 void UManageable::AddOpeningFunction(TFunction<bool()> openingAct)

@@ -19,9 +19,12 @@ private:
 	/// <summary>
 	/// 実際に使われる動作するかの判定
 	/// </summary>
-	bool bIsTickable;
+	bool _bIsTickable;
 
-	bool bWasInit;
+	/// <summary>
+	/// 初期化処理が実行されたか
+	/// </summary>
+	bool _bWasInit;
 
 protected:
 
@@ -38,17 +41,26 @@ public:
 	UWorld* GetWorld() const override;
 
 protected:
+	/// <summary>
+	/// 周期処理実装用イベント
+	/// </summary>
+	/// <param name="DeltaTime">フレーム時間（秒）</param>
 	UFUNCTION(BlueprintNativeEvent, Category = Tick, DisplayName = "Tick")
-		void OnTick(float DeltaTime);
+	void OnTick(float DeltaTime);
 	virtual void OnTick_Implementation(float DeltaTime);
 
 	/// <summary>
-	/// そのオブジェクトの初回Tickで呼ばれる
+	/// そのオブジェクトの初回Tickで呼ばれるイベント
 	/// </summary>
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = Tick)
-		void Initialize();
+	void Initialize();
 	virtual void Initialize_Implementation();
 
+	/// <summary>
+	/// Tickを実行するか
+	/// 初期値はfalseになっている
+	/// </summary>
+	/// <param name="newTickable">実行するならtrue</param>
 	UFUNCTION(BlueprintCallable, Category = Tick)
-		void SetTickable(bool newTickable);
+	void SetTickable(bool newTickable);
 };

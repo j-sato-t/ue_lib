@@ -29,14 +29,28 @@ class UELIB_API ULogger : public UObject
 {
 	GENERATED_BODY()
 protected:
+	/// <summary>
+	/// これ未満のレベルのログを無視するフィルタ
+	/// </summary>
 	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true), Category = Log)
 	ELogLevel _filterType;
+
+	/// <summary>
+	/// ログ文字列に追加する抽出用タグ
+	/// </summary>
 	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true), Category = Log)
 	FString _tag;
+
+	/// <summary>
+	/// UTC時刻を使うか
+	/// </summary>
 	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true), Category = Log)
 	bool _timeUTC;
 
 public:
+	/// <summary>
+	/// 生成したログ文字列を中継するデリゲート
+	/// </summary>
 	UPROPERTY(BlueprintAssignable, Category = Log)
 	FRelayLogString OnRelayLogString;
 
@@ -53,10 +67,26 @@ private:
 	/// <returns></returns>
 	FString BuildLogMsg(ELogLevel level, FString msg) const;
 
+	/// <summary>
+	/// ログレベルのenumを文字列にする
+	/// </summary>
+	/// <param name="level">対象のレベル</param>
+	/// <returns>文字列化したレベル</returns>
 	FString GetLevelString(ELogLevel level) const;
 
+	/// <summary>
+	/// 現在時刻を文字列として取得
+	/// </summary>
+	/// <returns>ISO8601形式の文字列（タイムゾーンはZ固定）</returns>
 	FString GetTimeString() const;
 
+	/// <summary>
+	/// 出力するかの判定と文字列の生成
+	/// </summary>
+	/// <param name="level">ログレベル</param>
+	/// <param name="msg">ログ内容</param>
+	/// <param name="outMsg">出力する文字列</param>
+	/// <returns>出力するか</returns>
 	bool CheckAndBuildMsg(ELogLevel level, FString msg, FString& outMsg) const;
 
 public:
