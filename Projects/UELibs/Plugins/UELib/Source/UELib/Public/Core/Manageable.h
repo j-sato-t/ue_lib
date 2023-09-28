@@ -200,4 +200,17 @@ protected:
 	/// <param name="openingAct"></param>
 	UFUNCTION(BlueprintCallable, Category = Manageable)
 	void AddOpeningAct(UWaitableBase* openingAct);
+
+	// -----------------------------
+	
+	bool IsCreated() { return _condition == ManageCondition::Created; }
+	bool IsOpen() { return _condition == ManageCondition::Open; }
+	bool IsPause() { return _condition == ManageCondition::Pause; }
+	bool IsFinished() { return _condition == ManageCondition::Finished; }
+
+	/// <summary>
+	/// Running状態か
+	/// </summary>
+	/// <returns>Runningの時のみtrue</returns>
+	bool IsRunning() { return _condition == ManageCondition::Running; }
 };
