@@ -5,10 +5,11 @@
 #include <chrono>
 #include <thread>
 
-UManageable::UManageable() : _className(__func__)
+UManageable::UManageable()
 {
 	_condition = ManageCondition::Created;
 	_logger = nullptr;
+	_className = TEXT("");
 }
 
 void UManageable::SetCondition(ManageCondition condition)
@@ -29,7 +30,7 @@ bool UManageable::Open(const FOpenSetting& setting)
 	if (_condition != ManageCondition::Created) return false;
 
 	_logger = NewObject<ULogger>(this);
-	FString logTag = setting.LogTag.IsEmpty() ? _className : setting.LogTag;
+	FString logTag = setting.LogTag.IsEmpty() ? GetClassName() : setting.LogTag;
 	_logger->Setup(setting.LogFilterLevel, logTag, true);
 	_logger->LogTrace(TEXT("Open"));
 
@@ -162,6 +163,13 @@ void UManageable::SetAutoCloser(UManageable* target)
 {
 	if (target == nullptr) return;
 	_autoCloseList.Add(target);
+}
+
+FString UManageable::GetClassName()
+{
+	if (!_className.IsEmpty()) return _className;
+	_className = GetClass()->GetName();
+	return _className;
 }
 
 void UManageable::AddOpeningFunction(TFunction<bool()> openingAct)

@@ -60,7 +60,7 @@ private:
 	/// クラス名
 	/// </summary>
 	/// TODO: 継承先のクラス名になるように修正
-	const char* _className;
+	FString _className;
 
 	/// <summary>
 	/// 自身のColse時に合わせてCloseさせるManageableのリスト
@@ -185,6 +185,9 @@ protected:
 	/// <param name="target"></param>
 	UFUNCTION(BlueprintCallable, Category = Manageable)
 	void SetAutoCloser(UManageable* target);
+
+	// ---------------------------
+	FString GetClassName();
 
 	// ---------------------------
 
