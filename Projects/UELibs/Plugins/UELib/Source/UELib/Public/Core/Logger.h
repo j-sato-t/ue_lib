@@ -32,26 +32,26 @@ protected:
 	/// <summary>
 	/// これ未満のレベルのログを無視するフィルタ
 	/// </summary>
-	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true), Category = Log)
+	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true), Category = "UELib|Log")
 	ELogLevel FilterType;
 
 	/// <summary>
 	/// ログ文字列に追加する抽出用タグ
 	/// </summary>
-	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true), Category = Log)
+	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true), Category = "UELib|Log")
 	FString Tag;
 
 	/// <summary>
 	/// UTC時刻を使うか
 	/// </summary>
-	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true), Category = Log)
+	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true), Category = "UELib|Log")
 	bool TimeUTC;
 
 public:
 	/// <summary>
 	/// 生成したログ文字列を中継するデリゲート
 	/// </summary>
-	UPROPERTY(BlueprintAssignable, Category = Log)
+	UPROPERTY(BlueprintAssignable, Category = "UELib|Log")
 	FRelayLogString OnRelayLogString;
 
 public:
@@ -93,17 +93,17 @@ public:
 
 	// =================================
 
-	UFUNCTION(BlueprintCallable, Category = Log)
+	UFUNCTION(BlueprintCallable, Category = "UELib|Log")
 	void LogTrace(FString Msg) const;
-	UFUNCTION(BlueprintCallable, Category = Log)
+	UFUNCTION(BlueprintCallable, Category = "UELib|Log")
 	void LogDebug(FString Msg) const;
-	UFUNCTION(BlueprintCallable, Category = Log)
+	UFUNCTION(BlueprintCallable, Category = "UELib|Log")
 	void LogInfo(FString msg) const;
-	UFUNCTION(BlueprintCallable, Category = Log)
+	UFUNCTION(BlueprintCallable, Category = "UELib|Log")
 	void LogWarning(FString Msg) const;
-	UFUNCTION(BlueprintCallable, Category = Log)
+	UFUNCTION(BlueprintCallable, Category = "UELib|Log")
 	void LogError(FString Msg) const;
-	UFUNCTION(BlueprintCallable, Category = Log)
+	UFUNCTION(BlueprintCallable, Category = "UELib|Log")
 	void LogCritical(FString Msg, bool bIsClash = false) const;
 
 	// コードで初期化する時用

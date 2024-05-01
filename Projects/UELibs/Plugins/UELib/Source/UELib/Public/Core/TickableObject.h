@@ -45,14 +45,14 @@ protected:
 	/// 周期処理実装用イベント
 	/// </summary>
 	/// <param name="DeltaTime">フレーム時間（秒）</param>
-	UFUNCTION(BlueprintNativeEvent, Category = Tick, DisplayName = "Tick")
+	UFUNCTION(BlueprintNativeEvent, Category = "UELib|Tickable", DisplayName = "Tick")
 	void OnTick(float DeltaTime);
 	virtual void OnTick_Implementation(float DeltaTime);
 
 	/// <summary>
 	/// そのオブジェクトの初回Tickで呼ばれるイベント
 	/// </summary>
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = Tick)
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "UELib|Tickable")
 	void Initialize();
 	virtual void Initialize_Implementation();
 
@@ -61,6 +61,6 @@ protected:
 	/// 初期値はfalseになっている
 	/// </summary>
 	/// <param name="newTickable">実行するならtrue</param>
-	UFUNCTION(BlueprintCallable, Category = Tick)
+	UFUNCTION(BlueprintCallable, Category = "UELib|Tickable")
 	void SetTickable(bool bNewTickable);
 };

@@ -21,25 +21,25 @@ protected:
 	UPROPERTY()
 	TArray<FString> Buffer;
 
-	UPROPERTY(BlueprintReadOnly, Category="Replay|Save")
+	UPROPERTY(BlueprintReadOnly, Category = "UELib|ActionReplay|Save")
 	int32 BufferMaxSize;
 
 public:
 	UActionLogWriter();
 
 	// Setup save file path
-	UFUNCTION(BlueprintCallable, Category="Replay|Save")
+	UFUNCTION(BlueprintCallable, Category = "UELib|ActionReplay|Save")
 	void Setting(FString FileName, int32 BufferSize = 32);
 
 	// Append string to log buffer
-	UFUNCTION(BlueprintCallable, Category="Replay|Save")
+	UFUNCTION(BlueprintCallable, Category = "UELib|ActionReplay|Save")
 	void AddLogString(FString LogString);
 
 	/**
 		Write file from buffer  
 		@note auto call from BeginDestroy
 	*/
-	UFUNCTION(BlueprintCallable, Category="Replay|Save")
+	UFUNCTION(BlueprintCallable, Category = "UELib|ActionReplay|Save")
 	bool WriteToFile();
 
 	virtual void BeginDestroy() override;

@@ -39,19 +39,19 @@ protected:
 	/// <summary>
 	/// エラーになったことをセットする
 	/// </summary>
-	UFUNCTION(BlueprintCallable, Category = Task)
+	UFUNCTION(BlueprintCallable, Category = "UELib|Task")
 	void SetFailed();
 public:
 
 	/// <summary>
 	/// タスクを開始する
 	/// </summary>
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = Task)
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "UELib|Task")
 	void StartTask();
 	virtual void StartTask_Implementation();
 
-	UFUNCTION(BlueprintPure, Category = Task)
+	UFUNCTION(BlueprintPure, Category = "UELib|Task")
 	bool IsSuccessed() { return Status == ETaskStatus::Finished; }
-	UFUNCTION(BlueprintPure, Category = Task)
+	UFUNCTION(BlueprintPure, Category = "UELib|Task")
 	bool IsFailed() { return Status == ETaskStatus::Failed; }
 };

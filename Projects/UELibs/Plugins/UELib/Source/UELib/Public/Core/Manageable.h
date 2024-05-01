@@ -37,9 +37,9 @@ enum class ManageCondition : uint8 {
 USTRUCT(Blueprintable, BlueprintType)
 struct FOpenSetting {
 	GENERATED_BODY()
-	UPROPERTY(BlueprintReadWrite, Category = Manageable)
+	UPROPERTY(BlueprintReadWrite, Category = "UELib|Manageable")
 	ELogLevel LogFilterLevel = ELogLevel::Info;
-	UPROPERTY(BlueprintReadWrite, Category = Manageable)
+	UPROPERTY(BlueprintReadWrite, Category = "UELib|Manageable")
 	FString LogTag = TEXT("");
 };
 
@@ -71,7 +71,7 @@ protected:
 	/// <summary>
 	/// このManageableで使うロガー
 	/// </summary>
-	UPROPERTY(BlueprintReadOnly, Category = Manageable)
+	UPROPERTY(BlueprintReadOnly, Category = "UELib|Manageable")
 	ULogger* Logger;
 
 	/// <summary>
@@ -107,27 +107,27 @@ public:
 	/// </summary>
 	/// <param name="setting"></param>
 	/// <returns>エラー無く開始できたか</returns>
-	UFUNCTION(BlueprintCallable, Category = Manageable)
+	UFUNCTION(BlueprintCallable, Category = "UELib|Manageable")
 	bool Open(const FOpenSetting& setting);
 
 	/// <summary>
 	/// 処理を終了する
 	/// </summary>
-	UFUNCTION(BlueprintCallable, Category = Manageable)
+	UFUNCTION(BlueprintCallable, Category = "UELib|Manageable")
 	void Close();
 
 	/// <summary>
 	/// 処理を一時停止する
 	/// </summary>
 	/// <returns>成功したか</returns>
-	UFUNCTION(BlueprintCallable, Category = Manageable)
+	UFUNCTION(BlueprintCallable, Category = "UELib|Manageable")
 	bool Pause();
 
 	/// <summary>
 	/// 処理を再開する
 	/// </summary>
 	/// <returns>成功したか</returns>
-	UFUNCTION(BlueprintCallable, Category = Manageable)
+	UFUNCTION(BlueprintCallable, Category = "UELib|Manageable")
 	bool Resume();
 
 	// ---------------------------
@@ -136,14 +136,14 @@ protected:
 	/// 開始時イベント
 	/// </summary>
 	/// <returns>処理が成功したか</returns>
-	UFUNCTION(BlueprintNativeEvent, Category = Manageable)
+	UFUNCTION(BlueprintNativeEvent, Category = "UELib|Manageable")
 	bool OnOpen();
 	virtual bool OnOpen_Implementation();
 
 	/// <summary>
 	/// 開始処理が完了したタイミング
 	/// </summary>
-	UFUNCTION(BlueprintNativeEvent, Category = Manageable)
+	UFUNCTION(BlueprintNativeEvent, Category = "UELib|Manageable")
 	void OnReady();
 	virtual void OnReady_Implementation();
 
@@ -151,7 +151,7 @@ protected:
 	/// 一時停止が呼ばれたタイミング
 	/// </summary>
 	/// <returns></returns>
-	UFUNCTION(BlueprintNativeEvent, Category = Manageable)
+	UFUNCTION(BlueprintNativeEvent, Category = "UELib|Manageable")
 	bool OnPause();
 	virtual bool OnPause_Implementation();
 
@@ -159,14 +159,14 @@ protected:
 	/// 再開が呼ばれたタイミング
 	/// </summary>
 	/// <returns></returns>
-	UFUNCTION(BlueprintNativeEvent, Category = Manageable)
+	UFUNCTION(BlueprintNativeEvent, Category = "UELib|Manageable")
 	bool OnResume();
 	virtual bool OnResume_Implementation();
 
 	/// <summary>
 	/// 終了が呼ばれたタイミング
 	/// </summary>
-	UFUNCTION(BlueprintNativeEvent, Category = Manageable)
+	UFUNCTION(BlueprintNativeEvent, Category = "UELib|Manageable")
 	void OnClose();
 	virtual void OnClose_Implementation();
 
@@ -182,7 +182,7 @@ protected:
 	/// 自身に合わせてCloseさせるManageableを登録する
 	/// </summary>
 	/// <param name="target"></param>
-	UFUNCTION(BlueprintCallable, Category = Manageable)
+	UFUNCTION(BlueprintCallable, Category = "UELib|Manageable")
 	void SetAutoCloser(UManageable* Target);
 
 	// ---------------------------
@@ -200,7 +200,7 @@ protected:
 	/// ラップされた待機処理を初期化処理として登録する
 	/// </summary>
 	/// <param name="openingAct"></param>
-	UFUNCTION(BlueprintCallable, Category = Manageable)
+	UFUNCTION(BlueprintCallable, Category = "UELib|Manageable")
 	void AddOpeningAct(UWaitableBase* OpeningAct);
 
 	// -----------------------------

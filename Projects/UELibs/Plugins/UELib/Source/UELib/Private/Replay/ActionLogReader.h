@@ -26,10 +26,10 @@ public:
 		open log file  
 		@note keep lock
 	*/
-	UFUNCTION(BlueprintCallable, Category = "Replay|Load")
+	UFUNCTION(BlueprintCallable, Category = "UELib|ActionReplay|Load")
 	bool OpenFile(FString FileName);
 	// read one line
-	UFUNCTION(BlueprintCallable, Category = "Replay|Load")
+	UFUNCTION(BlueprintCallable, Category = "UELib|ActionReplay|Load")
 	bool ReadLine(FString& OutLine);
 
 	virtual void BeginDestroy() override;

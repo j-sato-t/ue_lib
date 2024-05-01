@@ -84,19 +84,19 @@ protected:
 	/// <summary>
 	/// 読み書きどちらで動作するか
 	/// </summary>
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = Replay, Meta = (ExposeOnSpawn = true))
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "UELib|ActionReplay", Meta = (ExposeOnSpawn = true))
 	EReplayMode ReplayMode;
 
 	/// <summary>
 	/// 読み書きするログファイルの名前
 	/// </summary>
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = Replay, Meta = (ExposeOnSpawn = true))
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "UELib|ActionReplay", Meta = (ExposeOnSpawn = true))
 	FString ReplayLogName;
 
 	/// <summary>
 	/// 経過時間
 	/// </summary>
-	UPROPERTY(BlueprintReadOnly, Category = Replay)
+	UPROPERTY(BlueprintReadOnly, Category = "UELib|ActionReplay")
 	int64 PlayTime;
 
 	// ----------------------- temp last value

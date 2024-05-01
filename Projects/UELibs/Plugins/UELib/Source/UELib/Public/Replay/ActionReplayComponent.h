@@ -20,37 +20,37 @@ protected:
 	/// <summary>
 	/// Bool型データを読み込んだ際の配信
 	/// </summary>
-	UPROPERTY(BlueprintAssignable, Category = "Replay|Load")
+	UPROPERTY(BlueprintAssignable, Category = "UELib|ActionReplay|Load")
 	FOnBoolRecord OnBoolRecordBody;
 
 	/// <summary>
 	/// int32型データを読み込んだ際の配信
 	/// </summary>
-	UPROPERTY(BlueprintAssignable, Category = "Replay|Load")
+	UPROPERTY(BlueprintAssignable, Category = "UELib|ActionReplay|Load")
 	FOnInt32Record OnInt32RecordBody;
 
 	/// <summary>
 	/// float型データを読み込んだ際の配信
 	/// </summary>
-	UPROPERTY(BlueprintAssignable, Category = "Replay|Load")
+	UPROPERTY(BlueprintAssignable, Category = "UELib|ActionReplay|Load")
 	FOnFloatRecord OnFloatRecordBody;
 
 	/// <summary>
 	/// FVector型データを読み込んだ際の配信
 	/// </summary>
-	UPROPERTY(BlueprintAssignable, Category = "Replay|Load")
+	UPROPERTY(BlueprintAssignable, Category = "UELib|ActionReplay|Load")
 	FOnVectorRecord OnVectorRecordBody;
 
 	/// <summary>
 	/// 読み書きどちらで動作するか
 	/// </summary>
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = Replay)
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "UELib|ActionReplay")
 	EReplayMode ReplayMode;
 
 	/// <summary>
 	/// 読み書きするログファイルの名前
 	/// </summary>
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = Replay)
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "UELib|ActionReplay")
 	FString ReplayLogName;
 
 public:	
@@ -77,15 +77,15 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	UFUNCTION(BlueprintCallable, Category = "Replay|Save")
+	UFUNCTION(BlueprintCallable, Category = "UELib|ActionReplay|Save")
 	void SaveBool(const FString& Action, bool bData, bool bForce);
 
-	UFUNCTION(BlueprintCallable, Category = "Replay|Save")
+	UFUNCTION(BlueprintCallable, Category = "UELib|ActionReplay|Save")
 	void SaveInt32(const FString& Action, int32 Data, bool bForce);
 
-	UFUNCTION(BlueprintCallable, Category = "Replay|Save")
+	UFUNCTION(BlueprintCallable, Category = "UELib|ActionReplay|Save")
 	void SaveFloat(const FString& Action, float Data, bool bForce);
 
-	UFUNCTION(BlueprintCallable, Category = "Replay|Save")
+	UFUNCTION(BlueprintCallable, Category = "UELib|ActionReplay|Save")
 	void SaveVector(const FString& Action, const FVector& Data, bool bForce);
 };
