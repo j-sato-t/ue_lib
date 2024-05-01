@@ -54,36 +54,35 @@ private:
 	/// <summary>
 	/// 現在の状態
 	/// </summary>
-	ManageCondition _condition;
+	ManageCondition Condition;
 
 	/// <summary>
 	/// クラス名
 	/// </summary>
-	/// TODO: 継承先のクラス名になるように修正
-	FString _className;
+	FString ClassName;
 
 	/// <summary>
 	/// 自身のColse時に合わせてCloseさせるManageableのリスト
 	/// </summary>
 	UPROPERTY()
-	TArray<UManageable*> _autoCloseList;
+	TArray<UManageable*> AutoCloseList;
 
 protected:
 	/// <summary>
 	/// このManageableで使うロガー
 	/// </summary>
 	UPROPERTY(BlueprintReadOnly, Category = Manageable)
-	ULogger* _logger;
+	ULogger* Logger;
 
 	/// <summary>
 	/// 待機が必要な開始処理のリスト
 	/// </summary>
 	UPROPERTY()
-	TArray<UWaitableBase*> _openingActor;
+	TArray<UWaitableBase*> OpeningActor;
 	/// <summary>
 	/// 非同期での開始の待機タスクを保持する
 	/// </summary>
-	UE::Tasks::TTask<void> _waitOpeningTask;
+	UE::Tasks::TTask<void> WaitOpeningTask;
 
 public:
 	UManageable();
@@ -93,7 +92,7 @@ private:
 	/// 状態を変更する
 	/// </summary>
 	/// <param name="condition">変更先の状態</param>
-	void SetCondition(ManageCondition condition);
+	void SetCondition(ManageCondition Condition);
 
 	/// <summary>
 	/// 開始処理が終了したことの明示
@@ -184,7 +183,7 @@ protected:
 	/// </summary>
 	/// <param name="target"></param>
 	UFUNCTION(BlueprintCallable, Category = Manageable)
-	void SetAutoCloser(UManageable* target);
+	void SetAutoCloser(UManageable* Target);
 
 	// ---------------------------
 	FString GetClassName();
@@ -195,25 +194,25 @@ protected:
 	/// 非同期で実行する初期化関数を登録する
 	/// </summary>
 	/// <param name="openingAct"></param>
-	void AddOpeningFunction(TFunction<bool()> openingAct);
+	void AddOpeningFunction(TFunction<bool()> OpeningAct);
 
 	/// <summary>
 	/// ラップされた待機処理を初期化処理として登録する
 	/// </summary>
 	/// <param name="openingAct"></param>
 	UFUNCTION(BlueprintCallable, Category = Manageable)
-	void AddOpeningAct(UWaitableBase* openingAct);
+	void AddOpeningAct(UWaitableBase* OpeningAct);
 
 	// -----------------------------
 	
-	bool IsCreated() { return _condition == ManageCondition::Created; }
-	bool IsOpen() { return _condition == ManageCondition::Open; }
-	bool IsPause() { return _condition == ManageCondition::Pause; }
-	bool IsFinished() { return _condition == ManageCondition::Finished; }
+	bool IsCreated() { return Condition == ManageCondition::Created; }
+	bool IsOpen() { return Condition == ManageCondition::Open; }
+	bool IsPause() { return Condition == ManageCondition::Pause; }
+	bool IsFinished() { return Condition == ManageCondition::Finished; }
 
 	/// <summary>
 	/// Running状態か
 	/// </summary>
 	/// <returns>Runningの時のみtrue</returns>
-	bool IsRunning() { return _condition == ManageCondition::Running; }
+	bool IsRunning() { return Condition == ManageCondition::Running; }
 };

@@ -33,14 +33,14 @@ enum class EActionDataType : uint8 {
 
 // json structure
 template <typename T>
-struct SRecordStruct : public FJsonSerializable {
+struct FRecordStruct : public FJsonSerializable {
 	FString Action;
 	int32 DataType;
 	T Data;
 	int64 Time;
 
-	SRecordStruct() : Action(TEXT("")), DataType(0), Data(), Time(0L) {}
-	SRecordStruct(FString a, int32 dt, T d, int64 t) : Action(a), DataType(dt), Data(d), Time(t) {}
+	FRecordStruct() : Action(TEXT("")), DataType(0), Data(), Time(0L) {}
+	FRecordStruct(FString a, int32 dt, T d, int64 t) : Action(a), DataType(dt), Data(d), Time(t) {}
 
 	BEGIN_JSON_SERIALIZER
 		JSON_SERIALIZE("action", Action);
@@ -50,12 +50,12 @@ struct SRecordStruct : public FJsonSerializable {
 	END_JSON_SERIALIZER
 };
 
-struct SRecordJson {
+struct FRecordJson {
 	int64 Time;
 	EActionDataType DataType;
 	FString Json;
 
-	SRecordJson(int64 t, EActionDataType dt, FString j) : Time(t), DataType(dt), Json(j) {}
+	FRecordJson(int64 t, EActionDataType dt, FString j) : Time(t), DataType(dt), Json(j) {}
 };
 
 /**
@@ -73,45 +73,45 @@ protected:
 	/// ログを書き込むオブジェクト
 	/// </summary>
 	UPROPERTY()
-	UActionLogWriter* _logWriter;
+	UActionLogWriter* LogWriter;
 
 	/// <summary>
 	/// ログを読み込むオブジェクト
 	/// </summary>
 	UPROPERTY()
-	UActionLogReader* _logReader;
+	UActionLogReader* LogReader;
 
 	/// <summary>
 	/// 読み書きどちらで動作するか
 	/// </summary>
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = Replay, Meta = (ExposeOnSpawn = true))
-	EReplayMode _replayMode;
+	EReplayMode ReplayMode;
 
 	/// <summary>
 	/// 読み書きするログファイルの名前
 	/// </summary>
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = Replay, Meta = (ExposeOnSpawn = true))
-	FString _replayLogName;
+	FString ReplayLogName;
 
 	/// <summary>
 	/// 経過時間
 	/// </summary>
 	UPROPERTY(BlueprintReadOnly, Category = Replay)
-	int64 _playTime;
+	int64 PlayTime;
 
 	// ----------------------- temp last value
 
 	UPROPERTY()
-	TMap<FString, bool> _lastBoolValues;
+	TMap<FString, bool> LastBoolValues;
 
 	UPROPERTY()
-	TMap<FString, int32> _lastInt32Values;
+	TMap<FString, int32> LastInt32Values;
 
 	UPROPERTY()
-	TMap<FString, float> _lastFloatValues;
+	TMap<FString, float> LastFloatValues;
 
 	UPROPERTY()
-	TMap<FString, FString> _lastVectorValues; // 保持は文字列で
+	TMap<FString, FString> LastVectorValues; // 保持は文字列で
 
 	// ----------------------- read setting
 
@@ -119,18 +119,18 @@ protected:
 	/// ファイルを開いた際に読み込む行数
 	/// </summary>
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Replay|Load", Meta = (ExposeOnSpawn = true))
-	int32 _initLoadLines;
+	int32 InitLoadLines;
 
 	/// <summary>
 	/// 次フレームから読み込む行数
 	/// </summary>
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Replay|Load", Meta = (ExposeOnSpawn = true))
-	int32 _frameLoadLines;
+	int32 FrameLoadLines;
 
-	bool _canReadLine;
+	bool bCanReadLine;
 
-	TArray<SRecordJson> _loadedLines;
-	int32 _lineIndex;
+	TArray<FRecordJson> LoadedLines;
+	int32 LineIndex;
 
 
 	// ----------------------- on read line callback
@@ -139,40 +139,40 @@ public:
 	/// Bool型データを読み込んだ際の配信
 	/// </summary>
 	UPROPERTY(BlueprintAssignable, Category = "Replay|Load")
-	FOnBoolRecord _onBoolRecord;
+	FOnBoolRecord OnBoolRecordBody;
 
 	/// <summary>
 	/// int32型データを読み込んだ際の配信
 	/// </summary>
 	UPROPERTY(BlueprintAssignable, Category = "Replay|Load")
-	FOnInt32Record _onInt32Record;
+	FOnInt32Record OnInt32RecordBody;
 
 	/// <summary>
 	/// float型データを読み込んだ際の配信
 	/// </summary>
 	UPROPERTY(BlueprintAssignable, Category = "Replay|Load")
-	FOnFloatRecord _onFloatRecord;
+	FOnFloatRecord OnFloatRecordBody;
 
 	/// <summary>
 	/// FVector型データを読み込んだ際の配信
 	/// </summary>
 	UPROPERTY(BlueprintAssignable, Category = "Replay|Load")
-	FOnVectorRecord _onVectorRecord;
+	FOnVectorRecord OnVectorRecordBody;
 
 	// ----------------------- save functions
 public:
 
 	UFUNCTION(BlueprintCallable, Category = "Replay|Save")
-	void SaveBool(const FString& action, bool data, bool force);
+	void SaveBool(const FString& Action, bool bData, bool bForce);
 
 	UFUNCTION(BlueprintCallable, Category = "Replay|Save")
-	void SaveInt32(const FString& action, int32 data, bool force);
+	void SaveInt32(const FString& Action, int32 Data, bool bForce);
 
 	UFUNCTION(BlueprintCallable, Category = "Replay|Save")
-	void SaveFloat(const FString& action, float data, bool force);
+	void SaveFloat(const FString& Action, float Data, bool bForce);
 
 	UFUNCTION(BlueprintCallable, Category = "Replay|Save")
-	void SaveVector(const FString& action, const FVector& data, bool force);
+	void SaveVector(const FString& Action, const FVector& Data, bool bForce);
 
 protected:
 
@@ -186,18 +186,18 @@ protected:
 	/// <param name="force">直近と同じデータでも記録するか</param>
 	/// <param name="lastValues">直近データが格納されたマップ</param>
 	template<typename T>
-	void SaveRecord(const FString& action, EActionDataType dataType, T data, bool force, TMap<FString, T>* lastValues);
+	void SaveRecord(const FString& Ation, EActionDataType DataType, T Data, bool bForce, TMap<FString, T>* LastValues);
 	
 
 	// ----------------------- load functions
 protected:
-	void LoadLines(const int32 maxLineCount);
+	void LoadLines(const int32 MaxLineCount);
 
 	void CheckRecords();
-	void BroadcastRecord(const SRecordJson* record);
+	void BroadcastRecord(const FRecordJson* Record);
 
 	template<typename T>
-	void GetData(FString line, TFunction<void(const FString&, T)> callback);
+	void GetData(FString Line, TFunction<void(const FString&, T)> Callback);
 
 	// ------------------------ manageable
 
@@ -226,6 +226,6 @@ public:
 	/// <param name="replayLogName"></param>
 	/// <param name="initLoadLine"></param>
 	/// <param name="frameLoadLine"></param>
-	void Setup(EReplayMode mode, const FString& replayLogName = TEXT("ActionReplay.log"), int32 initLoadLine = 128, int32 frameLoadLine = 64);
+	void Setup(EReplayMode mode, const FString& ReplayLogName = TEXT("ActionReplay.log"), int32 InitLoadLine = 128, int32 FrameLoadLine = 64);
 
 };

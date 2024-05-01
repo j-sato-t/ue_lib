@@ -19,12 +19,12 @@ private:
 	/// <summary>
 	/// 実際に使われる動作するかの判定
 	/// </summary>
-	bool _bIsTickable;
+	bool bIsTickable;
 
 	/// <summary>
 	/// 初期化処理が実行されたか
 	/// </summary>
-	bool _bWasInit;
+	bool bWasInit;
 
 protected:
 
@@ -34,9 +34,9 @@ public:
 
 	// override
 	void Tick(float DeltaTime) override;
-	bool IsTickable() const override;
-	bool IsTickableInEditor() const override;
-	bool IsTickableWhenPaused() const override;
+	virtual bool IsTickable() const override;
+	virtual bool IsTickableInEditor() const override;
+	virtual bool IsTickableWhenPaused() const override;
 	TStatId GetStatId() const override;
 	UWorld* GetWorld() const override;
 
@@ -62,5 +62,5 @@ protected:
 	/// </summary>
 	/// <param name="newTickable">実行するならtrue</param>
 	UFUNCTION(BlueprintCallable, Category = Tick)
-	void SetTickable(bool newTickable);
+	void SetTickable(bool bNewTickable);
 };

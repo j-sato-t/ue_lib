@@ -5,13 +5,13 @@
 
 void UWaitFunction::StartTask_Implementation()
 {
-	if (!_waitFunction.IsBound()) {
+	if (!WaitFunction.IsBound()) {
 		SetFailed();
 		return;
 	}
 
-	_taskBody = UE::Tasks::Launch(UE_SOURCE_LOCATION, [this] {
-		if (_waitFunction.Execute()) {
+	TaskBody = UE::Tasks::Launch(UE_SOURCE_LOCATION, [this] {
+		if (WaitFunction.Execute()) {
 			SetFinish();
 		}
 		else {
@@ -22,5 +22,5 @@ void UWaitFunction::StartTask_Implementation()
 
 void UWaitFunction::SetFunction(TFunction<bool()> taskFunction)
 {
-	_waitFunction.BindLambda(taskFunction);
+	WaitFunction.BindLambda(taskFunction);
 }

@@ -7,7 +7,7 @@
 #include "Logger.generated.h"
 
 DECLARE_LOG_CATEGORY_EXTERN(LogUELib, Log, All);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRelayLogString, FString, logString);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRelayLogString, FString, LogString);
 
 
 UENUM(BlueprintType)
@@ -33,19 +33,19 @@ protected:
 	/// これ未満のレベルのログを無視するフィルタ
 	/// </summary>
 	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true), Category = Log)
-	ELogLevel _filterType;
+	ELogLevel FilterType;
 
 	/// <summary>
 	/// ログ文字列に追加する抽出用タグ
 	/// </summary>
 	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true), Category = Log)
-	FString _tag;
+	FString Tag;
 
 	/// <summary>
 	/// UTC時刻を使うか
 	/// </summary>
 	UPROPERTY(BlueprintReadOnly, Meta = (ExposeOnSpawn = true), Category = Log)
-	bool _timeUTC;
+	bool TimeUTC;
 
 public:
 	/// <summary>
@@ -65,14 +65,14 @@ private:
 	/// <param name="level">ログレベル</param>
 	/// <param name="msg">メッセージの内容</param>
 	/// <returns></returns>
-	FString BuildLogMsg(ELogLevel level, FString msg) const;
+	FString BuildLogMsg(ELogLevel Level, FString Msg) const;
 
 	/// <summary>
 	/// ログレベルのenumを文字列にする
 	/// </summary>
 	/// <param name="level">対象のレベル</param>
 	/// <returns>文字列化したレベル</returns>
-	FString GetLevelString(ELogLevel level) const;
+	FString GetLevelString(ELogLevel Level) const;
 
 	/// <summary>
 	/// 現在時刻を文字列として取得
@@ -87,25 +87,25 @@ private:
 	/// <param name="msg">ログ内容</param>
 	/// <param name="outMsg">出力する文字列</param>
 	/// <returns>出力するか</returns>
-	bool CheckAndBuildMsg(ELogLevel level, FString msg, FString& outMsg) const;
+	bool CheckAndBuildMsg(ELogLevel Level, FString Msg, FString& OutMsg) const;
 
 public:
 
 	// =================================
 
 	UFUNCTION(BlueprintCallable, Category = Log)
-	void LogTrace(FString msg) const;
+	void LogTrace(FString Msg) const;
 	UFUNCTION(BlueprintCallable, Category = Log)
-	void LogDebug(FString msg) const;
+	void LogDebug(FString Msg) const;
 	UFUNCTION(BlueprintCallable, Category = Log)
 	void LogInfo(FString msg) const;
 	UFUNCTION(BlueprintCallable, Category = Log)
-	void LogWarning(FString msg) const;
+	void LogWarning(FString Msg) const;
 	UFUNCTION(BlueprintCallable, Category = Log)
-	void LogError(FString msg) const;
+	void LogError(FString Msg) const;
 	UFUNCTION(BlueprintCallable, Category = Log)
-	void LogCritical(FString msg, bool bIsClash = false) const;
+	void LogCritical(FString Msg, bool bIsClash = false) const;
 
 	// コードで初期化する時用
-	void Setup(ELogLevel filter = ELogLevel::Info, FString tag = TEXT(""), bool timeUTC = true);
+	void Setup(ELogLevel Filter = ELogLevel::Info, FString Tag = TEXT(""), bool bTimeUTC = true);
 };

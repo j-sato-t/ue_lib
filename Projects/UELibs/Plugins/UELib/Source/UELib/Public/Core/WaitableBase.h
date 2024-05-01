@@ -28,7 +28,7 @@ private:
 	/// 現在の状態
 	/// </summary>
 	UPROPERTY()
-	ETaskStatus _status = ETaskStatus::Running;
+	ETaskStatus Status = ETaskStatus::Running;
 protected:
 	/// <summary>
 	/// 完了したことをセットする
@@ -51,7 +51,7 @@ public:
 	virtual void StartTask_Implementation();
 
 	UFUNCTION(BlueprintPure, Category = Task)
-	bool IsSuccessed() { return _status == ETaskStatus::Finished; }
+	bool IsSuccessed() { return Status == ETaskStatus::Finished; }
 	UFUNCTION(BlueprintPure, Category = Task)
-	bool IsFailed() { return _status == ETaskStatus::Failed; }
+	bool IsFailed() { return Status == ETaskStatus::Failed; }
 };

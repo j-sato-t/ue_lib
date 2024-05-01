@@ -13,7 +13,7 @@ class UELIBS_API AFunctionWaitTester : public AActor
 	GENERATED_BODY()
 
 private:
-	UWaitFunction* _waitFunction;
+	UWaitFunction* WaitFunction;
 	
 public:	
 	// Sets default values for this actor's properties

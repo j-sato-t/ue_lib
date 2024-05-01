@@ -8,16 +8,16 @@ DEFINE_LOG_CATEGORY(LogUELib)
 
 ULogger::ULogger()
 {
-	_tag = TEXT("Default");
-	_filterType = ELogLevel::Info;
-	_timeUTC = true;
+	Tag = TEXT("Default");
+	FilterType = ELogLevel::Info;
+	TimeUTC = true;
 }
 
 
 
 FString ULogger::BuildLogMsg(ELogLevel level, FString msg) const
 {
-	return FString::Printf(TEXT("%s [%s] {%s}: %s"), *GetTimeString(), *GetLevelString(level), *_tag, *msg);
+	return FString::Printf(TEXT("%s [%s] {%s}: %s"), *GetTimeString(), *GetLevelString(level), *Tag, *msg);
 }
 
 FString ULogger::GetLevelString(ELogLevel level) const
@@ -30,13 +30,13 @@ FString ULogger::GetLevelString(ELogLevel level) const
 
 FString ULogger::GetTimeString() const
 {
-	FDateTime now = _timeUTC ? FDateTime::UtcNow() : FDateTime::Now();
+	FDateTime now = TimeUTC ? FDateTime::UtcNow() : FDateTime::Now();
 	return now.ToIso8601();
 }
 
 bool ULogger::CheckAndBuildMsg(ELogLevel level, FString msg, FString& outMsg) const
 {
-	if (level < _filterType) return false;
+	if (level < FilterType) return false;
 	outMsg = BuildLogMsg(level, msg);
 	OnRelayLogString.Broadcast(outMsg);
 	return true;
@@ -90,7 +90,7 @@ void ULogger::LogCritical(FString msg, bool bIsClash) const
 
 void ULogger::Setup(ELogLevel filter, FString tag, bool timeUTC)
 {
-	_filterType = filter;
-	_tag = tag;
-	_timeUTC = timeUTC;
+	FilterType = filter;
+	Tag = tag;
+	TimeUTC = timeUTC;
 }

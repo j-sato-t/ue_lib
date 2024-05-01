@@ -20,12 +20,12 @@ private:
 	/// <summary>
 	/// 実行する関数のデリゲート
 	/// </summary>
-	FWaitFunction _waitFunction;
+	FWaitFunction WaitFunction;
 
 	/// <summary>
 	/// タスク本体
 	/// </summary>
-	UE::Tasks::TTask<void> _taskBody;
+	UE::Tasks::TTask<void> TaskBody;
 
 protected:
 	virtual void StartTask_Implementation() override;
@@ -35,5 +35,5 @@ public:
 	/// 実行する関数をセットする
 	/// </summary>
 	/// <param name="taskFunction">引数無しでboolを返す関数</param>
-	void SetFunction(TFunction<bool()> taskFunction);
+	void SetFunction(TFunction<bool()> TaskFunction);
 };

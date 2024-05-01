@@ -5,12 +5,12 @@
 
 void UWaitableBase::SetFinish()
 {
-	_status = ETaskStatus::Finished;
+	Status = ETaskStatus::Finished;
 }
 
 void UWaitableBase::SetFailed()
 {
-	_status = ETaskStatus::Failed;
+	Status = ETaskStatus::Failed;
 }
 
 void UWaitableBase::StartTask_Implementation()

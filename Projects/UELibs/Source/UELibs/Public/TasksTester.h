@@ -15,7 +15,7 @@ class UELIBS_API ATasksTester : public AActor
 	GENERATED_BODY()
 	
 private:
-	UE::Tasks::TTask<void> _testTask;
+	UE::Tasks::TTask<void> TestTask;
 
 public:	
 	// Sets default values for this actor's properties

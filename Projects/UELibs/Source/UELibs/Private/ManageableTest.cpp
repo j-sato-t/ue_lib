@@ -8,9 +8,9 @@
 bool UManageableTest::OnOpen_Implementation()
 {
 	AddOpeningFunction([this] {
-		_logger->LogInfo(TEXT("start opening function"));
+		Logger->LogInfo(TEXT("start opening function"));
 		std::this_thread::sleep_for(std::chrono::seconds(3));
-		_logger->LogInfo(TEXT("end opening function"));
+		Logger->LogInfo(TEXT("end opening function"));
 		return true;
 	});
 	return true;

@@ -5,15 +5,15 @@
 
 UTickableObject::UTickableObject() : Super()
 {
-	_bIsTickable = false;
-	_bWasInit = false;
+	bIsTickable = false;
+	bWasInit = false;
 }
 
 void UTickableObject::Tick(float DeltaTime)
 {
-	if (!_bWasInit)
+	if (!bWasInit)
 	{
-		_bWasInit = true;
+		bWasInit = true;
 		Initialize();
 	}
 	OnTick(DeltaTime);
@@ -21,7 +21,7 @@ void UTickableObject::Tick(float DeltaTime)
 
 bool UTickableObject::IsTickable() const
 {
-	return _bIsTickable;
+	return bIsTickable;
 }
 
 bool UTickableObject::IsTickableInEditor() const
@@ -54,5 +54,5 @@ void UTickableObject::Initialize_Implementation()
 
 void UTickableObject::SetTickable(bool newTickable)
 {
-	_bIsTickable = newTickable;
+	bIsTickable = newTickable;
 }

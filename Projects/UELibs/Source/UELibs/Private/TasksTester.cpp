@@ -18,7 +18,7 @@ void ATasksTester::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	_testTask = UE::Tasks::Launch(UE_SOURCE_LOCATION, [] {
+	TestTask = UE::Tasks::Launch(UE_SOURCE_LOCATION, [] {
 		UE_LOG(LogTemp, Log, TEXT("task body")); 
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 	});
@@ -29,7 +29,7 @@ void ATasksTester::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (_testTask.IsCompleted()) {
+	if (TestTask.IsCompleted()) {
 		UE_LOG(LogTemp, Log, TEXT("checked completed"));
 		SetActorTickEnabled(false);
 	}

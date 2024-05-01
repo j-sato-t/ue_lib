@@ -19,13 +19,13 @@ void AFunctionWaitTester::BeginPlay()
 	Super::BeginPlay();
 	SetActorTickEnabled(true);
 
-	_waitFunction = NewObject<UWaitFunction>(this);
-	_waitFunction->SetFunction([this] {
+	WaitFunction = NewObject<UWaitFunction>(this);
+	WaitFunction->SetFunction([this] {
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 		return true;
 	});
 	UE_LOG(LogTemp, Log, TEXT("start task"));
-	_waitFunction->StartTask();
+	WaitFunction->StartTask();
 }
 
 // Called every frame
@@ -33,7 +33,7 @@ void AFunctionWaitTester::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (_waitFunction->IsSuccessed()) {
+	if (WaitFunction->IsSuccessed()) {
 		SetActorTickEnabled(false);
 		UE_LOG(LogTemp, Log, TEXT("end task"));
 		return;
